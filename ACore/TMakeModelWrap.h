@@ -7,7 +7,9 @@
 
 
 template <class Base>
-class TMakeModelWrap: public Base, public CModelBase
+class TMakeModelWrap :
+        public CModelBase,
+        public Base
 {
 public:
 	typedef CModelBase BaseClass;

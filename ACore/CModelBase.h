@@ -27,7 +27,8 @@ protected:
 	void NotifyBeforeChange();
 	void NotifyAfterChange();
 
-private:
+protected:
 	typedef std::list<std::weak_ptr<IObserver>> ObserverList;
 	ObserverList m_observerList;
+	int m_notificationBlockCounter;
 };

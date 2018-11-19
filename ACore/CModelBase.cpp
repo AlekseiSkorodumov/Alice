@@ -8,8 +8,8 @@
 // public methods
 
 CModelBase::CModelBase()
+	:m_notificationBlockCounter(0)
 {
-
 }
 
 
@@ -90,6 +90,7 @@ void CModelBase::NotifyBeforeChange()
 		std::shared_ptr<IObserver> observerLockedPtr = (*observerIter).lock();
 		if (observerLockedPtr.get() != NULL){
 			observerLockedPtr->BeforeUpdate(shared_from_this());
+			++m_notificationBlockCounter;
 		}
 	}
 }
@@ -97,6 +98,11 @@ void CModelBase::NotifyBeforeChange()
 
 void CModelBase::NotifyAfterChange()
 {
+	--m_notificationBlockCounter;
+	if (m_notificationBlockCounter > 0){
+		return;
+	}
+
 	for (ObserverList::const_iterator observerIter = m_observerList.cbegin(); observerIter != m_observerList.cend(); ++observerIter){
 		std::shared_ptr<IObserver> observerLockedPtr = (*observerIter).lock();
 		if (observerLockedPtr.get() != NULL){

@@ -26,19 +26,14 @@ class TICustomChangeable : virtual public IChangeable
 public:
 	typedef Base NotificationDataType;
 
-	/**
-	using chtotottam
-*/
-	void BeginChanges() override
+	using IChangeable::BeginChanges;
+	using IChangeable::EndChanges;
+
+    virtual void BeginChanges(NotificationDataType /*notificationData*/)
 	{
 	}
-	void EndChanges() override
-	{
-	}
-	virtual void BeginChanges(NotificationDataType notificationData)
-	{
-	}
-	virtual void EndChanges(NotificationDataType notificationData)
+
+    virtual void EndChanges(NotificationDataType /*notificationData*/)
 	{
 	}
 };
